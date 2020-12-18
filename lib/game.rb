@@ -42,7 +42,8 @@ class Game
             board.update(input, player)
         else
             turn
-        end
+        end #need to put in board display functionality
+        board.display
     end
 
     def play

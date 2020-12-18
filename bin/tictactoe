@@ -1,3 +1,56 @@
 #!/usr/bin/env ruby
 
 require_relative '../config/environment'
+
+class TicTacToe
+    attr_accessor :game_type, :board, :player_1, :player_2
+    def initialize(board)
+        puts "Hello! Please select 0, 1, or 2 players:"
+        game_type = gets.strip
+        if game_type == "0"
+            player_1 = Players::Computer.new("X")
+            player_2 = Players::Computer.new("O")
+            puts "Wargames mode? 1 for yes, 2 for no, 3 for more information."
+            answer = gets.strip
+            if answer == "1"
+                100.times do
+                    game = Game.new(player_1, player_2, board)
+                    puts "#{game.play}"
+                end
+            elsif answer == "2"
+                game = Game.new(player_1, player_2, board)
+                puts "#{game.play}"
+            else
+                puts "In wargames mode, the computer will play itself 100 times using
+                its AI. If the AI is good, it should never win. You can watch the results."
+            end
+        elsif game_type == "1"
+            puts "Will you be Player 1 - X or Player 2 - O?
+            Please enter 1 or 2."
+            player_number = gets.to_i
+            if player_number == 1
+                player_1 = Players::Human.new("X")
+                player_2 = Players::Computer.new("O")
+            else
+                player_1 = Players::Computer.new("X")
+                player_2 = Players::Human.new("O")
+            end
+            game = Game.new(player_1, player_2, board)
+            game.play
+        elsif game_type == "2"
+            puts "Please enter the name of Player 1 (X)."
+            player_1 == Players::Human.new("X")
+            player_1_name = gets.strip
+            puts "Please enter the name of Player 2 (O)."
+            player_2 == Players::Human.new("O")
+            player_2_name = gets.strip
+            game = Game.new
+            game.play
+        end
+
+    end
+
+end
+
+board = Board.new
+tictactoe = TicTacToe.new(board)
